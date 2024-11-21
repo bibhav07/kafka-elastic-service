@@ -12,7 +12,7 @@ export class CatalogRepository implements ICatalogRepository {
     delete(id: any) {
         throw new Error("Method not implemented.");
     }
-    find(): Promise<Product[]> {
+    find(limit: number, offset: number): Promise<Product[]> {
         throw new Error("Method not implemented.");
     }
     findOne(id: number): Promise<Product> {
