@@ -14,18 +14,14 @@ router.post(
         try {
             
             const {errors, input} = await RequestValidator(CreateProductRequest, req.body);
-            if(errors) {
-                 res.status(400).json(errors);
-                 return;
-            }
-
+            if(errors) return res.status(400).json(errors);
+                 
             const data = await catalogService.createProduct(input);
-            res.status(201).json(data); // Correctly respond without returning
+            return res.status(201).json(data); // Correctly respond without returning
         
         } catch (error) {
             const err = error as Error;
-            res.status(500).json(err.message);
-            return;      
+            return res.status(500).json(err.message);
         }
     }
 );
@@ -37,19 +33,14 @@ router.patch("/products/:id", async (req: Request, res: Response, next: NextFunc
         const {errors, input} = await RequestValidator(UpdateProductRequest, req.body);
         const id = parseInt(req.params.id) || 0;
 
-        if(errors){
-             res.status(400).json(errors);
-             return;
-        } 
+        if(errors) return res.status(400).json(errors);
 
         const data = await catalogService.updateProduct({id, ...input})
-        res.status(200).json(data);
-        return;
+        return res.status(200).json(data);
 
     } catch (error) {
         const err = error as Error;
-        res.status(500).json(err.message); 
-        return;
+        return res.status(500).json(err.message); 
     }
 } )
 
