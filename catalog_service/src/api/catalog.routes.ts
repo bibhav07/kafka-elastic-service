@@ -44,4 +44,42 @@ router.patch("/products/:id", async (req: Request, res: Response, next: NextFunc
     }
 } )
 
+//fetch all products
+router.get("/products", async (req: Request, res: Response, next: NextFunction) => {
+    const limit = Number(req.query['limit']);
+    const offset = Number(req.query['offset']);
+    try {
+        const result = await catalogService.getProducts(limit, offset);
+        console.log("the result in route -> ", result);
+        return res.status(200).json(result);
+    } catch (error) {
+        const err = error as Error;
+        return res.status(500).json(err.message);
+    }
+})
+
+//fetch single products
+router.get("/product/:id", async (req: Request, res: Response, next: NextFunction) => {
+    const id = parseInt(req.params.id) || 0;
+    try {
+        const result = await catalogService.getProduct(id);
+        return res.status(200).json(result);
+    } catch (error) {
+        const err = error as Error;
+        return res.status(500).json(err.message);
+    }
+});
+
+router.delete("/product/:id",   async (req: Request, res: Response, next: NextFunction) => {
+    const id = parseInt(req.params.id) || 0;
+    try {
+        const result = await catalogService.deleteProduct(id);
+        return res.status(200).json(result);
+    } catch (error) {
+        const err =  error as Error;
+        return res.status(500).json(err.message);
+    }
+} )
+
 export default router;
+
