@@ -15,9 +15,8 @@ router.post(
             
             const {errors, input} = await RequestValidator(CreateProductRequest, req.body);
             if(errors) return res.status(400).json(errors);
-                 
             const data = await catalogService.createProduct(input);
-            return res.status(201).json(data); // Correctly respond without returning
+            return res.status(201).json(data); 
         
         } catch (error) {
             const err = error as Error;

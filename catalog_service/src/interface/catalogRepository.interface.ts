@@ -1,6 +1,6 @@
 import { Product } from "../models/product.model"
 
-//interface of catalog repo
+//interface of catalog repository
 export interface ICatalogRepository {
     create (data: Product): Promise<Product>;
     update (data: Product): Promise<Product>;
