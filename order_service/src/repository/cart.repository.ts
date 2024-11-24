@@ -4,7 +4,7 @@ import {CartRepositoryType} from "../types/repository.type";
 
 const createCart = async (input: any): Promise<{}> => {
     const result = await DB.insert(carts).values({
-        customerId: 123
+        customerId: input.customerId
     }).returning({cartId: carts.id});
     return Promise.resolve({message: "hey from create cart!", input, result});
 }
